@@ -1,30 +1,53 @@
-import Link from "next/link";
-import {getServerSession} from "next-auth";
+"use client";
 
-import {options} from "@/app/api/auth/[...nextauth]/options";
+import {ArrowLeft, UserCog} from "lucide-react";
+import {useRouter} from "next/navigation";
 
-const Navbar = async () => {
-  const session = await getServerSession(options);
+import EditModal from "./edit-modal";
+import Modal from "./modal";
+
+interface NavbarType {
+  title: string;
+  user: any;
+  showBackArrow?: boolean;
+  showEditor?: boolean;
+}
+
+const Navbar = ({title, user, showBackArrow, showEditor}: NavbarType) => {
+  const router = useRouter();
+
+  const handleBack = () => {
+    router.back();
+  };
 
   return (
     <>
-      <header className="bg-gray-600 text-gray-100">
-        <nav className="flex justify-between items-center w-full px-10 py-4">
-          <div>My Site</div>
-          <div className="flex gap-10">
-            <Link href="/">Home</Link>
-            <Link href="/create-user">Create User</Link>
-            <Link href="/client-member">Client Member</Link>
-            <Link href="/member">Member</Link>
-            <Link href="/public">Public</Link>
-            {session ? (
-              <Link href="/api/auth/signout?callbackUrl=/">Logout</Link>
-            ) : (
-              <Link href="/api/auth/signin">Login</Link>
-            )}
-          </div>
-        </nav>
-      </header>
+      <div className="p-5 bg-sky-500">
+        <div className="flex flex-row items-center justify-between gap-2">
+          {showBackArrow && (
+            <ArrowLeft
+              onClick={handleBack}
+              color="white"
+              size={20}
+              className="cursor-pointer"
+            />
+          )}
+          <h1 className="text-white text-xl font-semibold">{title}</h1>
+          {showEditor && (
+            <Modal
+              title="Update user"
+              description="Fill all teh fields to update your profile."
+              trigger={
+                <button className="mx-1 inline-flex items-center justify-center whitespace-nowrap rounded-md bg-primary p-1.5 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-gray-300">
+                  <UserCog className="text-primary-foreground" />
+                </button>
+              }
+            >
+              <EditModal currentUser={user} />
+            </Modal>
+          )}
+        </div>
+      </div>
     </>
   );
 };

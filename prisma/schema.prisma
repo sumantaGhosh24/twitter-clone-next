@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -11,21 +12,18 @@ datasource db {
 }
 
 model User {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
   name            String?
-  username        String?   @unique
+  username        String?  @unique
   bio             String?
-  email           String?   @unique
-  emailVerified   DateTime?
-  image           String?
+  email           String?  @unique
   coverImage      String?
   profileImage    String?
   password        String?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  followingIds    String[]  @db.ObjectId
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  followingIds    String[] @db.ObjectId
   hasNotification Boolean?
-  role            String?
 
   posts         Post[]
   comments      Comment[]
