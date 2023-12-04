@@ -1,5 +1,7 @@
 "use server";
 
+import {revalidatePath} from "next/cache";
+
 import {db} from "@/lib/prismadb";
 
 export async function getPost(postId: string) {
@@ -62,6 +64,8 @@ export async function createPost(body: any) {
         image,
       },
     });
+    revalidatePath("/");
+    revalidatePath("/user/[slug]", "page");
     return post;
   } catch (error) {
     console.log(error);
@@ -154,6 +158,9 @@ export async function handleLike(
         likedIds: updateLikedIds,
       },
     });
+    revalidatePath("/");
+    revalidatePath("/search");
+    revalidatePath("/user/[slug]", "page");
     return updatePost;
   } catch (error) {
     console.log(error);

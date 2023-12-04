@@ -4,20 +4,16 @@ import Link from "next/link";
 import {signOut} from "next-auth/react";
 import {Bell, Home, LogOut, Search, User} from "lucide-react";
 
-import {cn} from "@/lib/utils";
 import SidebarLogo from "./sidebar-logo";
 import SidebarTweetButton from "./sidebar-tweet-button";
 
 interface SidebarType {
   user: any;
-  className: any;
 }
 
-const Sidebar = ({user, className}: SidebarType) => {
+const Sidebar = ({user}: SidebarType) => {
   return (
-    <div
-      className={cn("bg-gray-200 h-[50vh] mb-5 md:mb-0 md:h-screen", className)}
-    >
+    <div className="bg-gray-200 h-[60vh] mb-5 md:mb-0 md:h-screen w-full md:w-1/4">
       <div className="px-3 py-5 flex flex-col space-y-5">
         <SidebarLogo />
         <Link

@@ -1,6 +1,7 @@
 "use server";
 
 import bcrypt from "bcrypt";
+import {revalidatePath} from "next/cache";
 
 import {db} from "@/lib/prismadb";
 
@@ -26,6 +27,7 @@ export async function registerUser(data: RegisterTypes) {
         password: hashPassword,
       },
     });
+    revalidatePath("/");
     return user;
   } catch (error) {
     console.log(error);
@@ -86,6 +88,8 @@ export async function updateUser(data: any) {
         coverImage,
       },
     });
+    revalidatePath("/user/[slug]", "page");
+    revalidatePath("/");
     return updateUser;
   } catch (error) {
     console.log(error);
@@ -140,6 +144,7 @@ export async function handleFollow(
         followingIds: updatedFollowingIds,
       },
     });
+    revalidatePath("/user/[slug]", "page");
     return updateUser;
   } catch (error) {
     console.log(error);

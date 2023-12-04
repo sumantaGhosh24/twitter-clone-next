@@ -1,5 +1,7 @@
 "use server";
 
+import {revalidatePath} from "next/cache";
+
 import {db} from "@/lib/prismadb";
 
 export async function createComment(body: any, postId: string, userId: string) {
@@ -35,6 +37,7 @@ export async function createComment(body: any, postId: string, userId: string) {
         },
       });
     }
+    revalidatePath("/post/[slug]", "page");
   } catch (error) {
     console.log(error);
   }

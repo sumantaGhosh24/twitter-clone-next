@@ -2,7 +2,7 @@
 
 import {db} from "@/lib/prismadb";
 
-export async function getNotifications(userId: string) {
+export async function getNotifications(userId?: string) {
   try {
     if (!userId || typeof userId !== "string") {
       throw new Error("Invalid user id.");

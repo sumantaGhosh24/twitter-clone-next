@@ -24,7 +24,7 @@ export default async function UserDetailedPage({
 
   return (
     <div className="flex flex-col md:flex-row">
-      <Sidebar user={user} className="w-full md:w-1/4" />
+      <Sidebar user={user} />
       <div className="w-full mb-5 md:mb-0 md:w-2/4">
         <Navbar
           title="Profile"
@@ -36,7 +36,7 @@ export default async function UserDetailedPage({
         <UserBio userId={params.slug} fetchUser={fetchUser} user={user} />
         <PostFeed posts={posts} user={user} />
       </div>
-      <Followbar users={users} user={user} className="w-full md:w-1/4" />
+      <Followbar users={users} user={user} />
     </div>
   );
 }

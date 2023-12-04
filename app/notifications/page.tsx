@@ -13,12 +13,12 @@ export default async function NotificationsPage() {
 
   return (
     <div className="flex flex-col md:flex-row">
-      <Sidebar user={user} className="w-full md:w-1/4" />
+      <Sidebar user={user} />
       <div className="w-full mb-5 md:mb-0 md:w-2/4">
         <Navbar title="Notifications" user={user} showEditor />
         <NotificationFeed notifications={notifications} />
       </div>
-      <Followbar users={users} user={user} className="w-full md:w-1/4" />
+      <Followbar users={users} user={user} />
     </div>
   );
 }
