@@ -32,6 +32,7 @@ const Searchbar = () => {
         onChange={(e) => setSearch(e.target.value)}
         placeholder={`Search posts`}
         className="border-none! bg-gray-200 text-base text-black outline-none! focus:border-none! focus:outline-0! focus-visible:ring-0 focus-visible:ring-gray-200 focus-visible:ring-offset-0"
+        autoComplete="off"
       />
     </div>
   );
