@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import {Avatar, AvatarFallback, AvatarImage} from "./ui/avatar";
 import {ScrollArea} from "./ui/scroll-area";
 
@@ -17,9 +19,10 @@ const Followbar = ({users, user}: FollowbarType) => {
         <h2 className="text-xl font-semibold">Who to follow</h2>
         <ScrollArea className="bg-gray-100 flex flex-col rounded-md border px-2 h-[40vh] md:h-[80vh] mt-5">
           {filterUsers.map((user: any) => (
-            <div
+            <Link
+              href={`/user/${user.id}`}
               key={user.id}
-              className="flex flex-row mt-5 bg-gray-200 p-3 rounded"
+              className="flex flex-row mt-5 bg-gray-200 p-3 rounded cursor-pointer"
             >
               <Avatar>
                 <AvatarImage src={user?.profileImage} />
@@ -29,7 +32,7 @@ const Followbar = ({users, user}: FollowbarType) => {
                 <p className="font-semibold text-sm">{user?.name}</p>
                 <p className="text-sm">@{user?.username}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </ScrollArea>
       </div>
